@@ -21,9 +21,6 @@ dtype={"Code": int, "name": str, "latitude": float, "longitude": float})
 stationInfo.head()
 print (stationInfo.head())
 
-
-print ('-------------------------------------------------------------------------------------------------')
-
 # I'll use the directory listing list to more easily load the separate CSV files into one dataframe
 fileList = os.listdir('C:/Users/test/Desktop/Milad_project/BIXI/Data/2019')
 
@@ -32,11 +29,9 @@ fileList = os.listdir('C:/Users/test/Desktop/Milad_project/BIXI/Data/2019')
 
 print(fileList)
 
-print ('-------------------------------------------------------------------------------------------------')
 #data1 = pd.read_csv("C:/Users/test/Desktop/Milad_project/BIXI/Data/2019/OD_2019-04.csv", nrows=1)
 #print(data1)
 #data1.info()
-#print ('-------------------------------------------------------------------------------------------------')
 
 
 #from datetime import datetime
@@ -51,8 +46,8 @@ data=pd.concat(dfs, ignore_index=True)
 
 
 #data = pd.concat([pd.read_csv('C:/Users/test/Desktop/Milad_project/BIXI/Data/2019/'+fileName,encoding='utf8')
- #                 for fileName in fileList[1:-1]],
- #                 sort=False,ignore_index=True)
+#                 for fileName in fileList[1:-1]],
+#                 sort=False,ignore_index=True)
 
 
 #dtype={"Code": int, "name": str, "latitude": float, "longitude": float, "start_station_code": int, "start_date": object, "end_date": object, "end_station_code": int,"duration_sec": int,"is_member": int}
@@ -63,16 +58,8 @@ data.loc[:,'end_date'] = pd.to_datetime(data['end_date'])
 data['tripStartHour'] = data['start_date'].dt.hour
 
 print (data.head())
-
-print ('--------------------------------------------------------------------------------------------')
-
 print(data[['duration_sec','is_member']].describe().style.format('{:.2f}'))
-
-print ('--------------------------------------------------------------------------------------------')
-
 print(data['duration_sec'].quantile(0.99))
-
-print ('--------------------------------------------------------------------------------------------')
 
 fig = go.Figure()
 
@@ -99,9 +86,6 @@ img_bytes = fig.to_image(format="jpg",width=1200,height=1000)
 Image(img_bytes)
 
 
-print ('--------------------------------------------------------------------------------------------')
-
-
 fig = go.Figure()
 
 fig.add_trace(go.Histogram(x=data['tripStartHour']))
@@ -126,11 +110,8 @@ Image(fig.to_image(format="jpg",width=1200,height=1000))
 fig.savefig('C:/Users/test/Desktop/Milad_project/BIXI/Data/2019')
 
 
-print ('--------------------------------------------------------------------------------------------')
-
 
 fig = make_subplots(rows=2, cols=2)
-
 rowsCols = [(1,1),(1,2),(2,1),(2,2)]
 labels = ['Weekday Members','Weekend Members','Weekday Non-Members','Weekend Non-Members']
 
